@@ -1,0 +1,7 @@
+.gradle/
+build/
+local.properties
+*.iml
+.idea/
+# Generado por web/scripts/build.mjs
+app/src/main/assets/www/

@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, interactive-widget=resizes-content">
+  <title>Código Móvil</title>
+  <link rel="stylesheet" href="vendor/codemirror/lib/codemirror.css">
+  <link rel="stylesheet" href="vendor/codemirror/theme/material-darker.css">
+  <link rel="stylesheet" href="vendor/xterm/xterm.css">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <header class="topbar">
+    <button id="btnMenu" class="icon" aria-label="Menú">☰</button>
+    <div class="title">
+      <div id="projName" class="proj-name">Proyecto</div>
+      <div id="projLang" class="proj-lang">C</div>
+    </div>
+    <button id="btnRun" class="run" aria-label="Ejecutar">▶</button>
+    <button id="btnStop" class="stop hidden" aria-label="Parar">■</button>
+  </header>
+
+  <nav class="views">
+    <button data-view="code" class="active">Código</button>
+    <button data-view="output">Salida</button>
+    <button data-view="preview" class="hidden">Vista</button>
+  </nav>
+
+  <main>
+    <section id="viewCode" class="view active">
+      <div class="files">
+        <div id="fileTabs" class="file-tabs"></div>
+        <button id="btnAddFile" class="icon small" aria-label="Nuevo archivo">＋</button>
+      </div>
+      <div id="editor" class="editor"></div>
+      <div id="symbols" class="symbols"></div>
+    </section>
+
+    <section id="viewOutput" class="view">
+      <div id="status" class="status">Listo</div>
+      <div id="terminal" class="terminal"></div>
+      <div id="keybar" class="keybar hidden">
+        <button data-key="esc">Esc</button>
+        <button data-key="up">↑</button>
+        <button data-key="down">↓</button>
+        <button data-key="left">←</button>
+        <button data-key="right">→</button>
+        <button data-key="space">Espacio</button>
+        <button data-key="enter">Enter</button>
+      </div>
+      <form id="inputForm" class="input-row">
+        <input id="stdin" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Entrada del programa" enterkeyhint="send">
+        <button type="submit">Enviar</button>
+      </form>
+    </section>
+
+    <section id="viewPreview" class="view">
+      <iframe id="preview" sandbox="allow-scripts allow-modals allow-forms allow-popups" title="Vista previa"></iframe>
+    </section>
+  </main>
+
+  <aside id="drawer" class="drawer hidden">
+    <div class="drawer-panel">
+      <h2>Código Móvil</h2>
+      <button data-action="newProject">＋ Nuevo proyecto</button>
+      <button data-action="examples">📚 Ejemplos</button>
+      <h3>Proyecto actual</h3>
+      <button data-action="newFile">📄 Nuevo archivo</button>
+      <button data-action="importFile">📥 Importar archivos (.h, .c, .py…)</button>
+      <button data-action="exportFile">📤 Exportar archivo actual</button>
+      <button data-action="renameFile">✏️ Renombrar archivo</button>
+      <button data-action="deleteFile">🗑️ Eliminar archivo</button>
+      <button data-action="setMain">⭐ Usar como archivo principal</button>
+      <button data-action="renameProject">✏️ Renombrar proyecto</button>
+      <button data-action="deleteProject">🗑️ Eliminar proyecto</button>
+      <h3>Mis proyectos</h3>
+      <div id="projectList" class="project-list"></div>
+      <h3>Ayuda</h3>
+      <button data-action="help">❓ Cómo funciona</button>
+      <button data-action="compat">🪟 windows.h, rlutil.h y conio.h</button>
+    </div>
+    <div class="drawer-backdrop" data-action="close"></div>
+  </aside>
+
+  <div id="modal" class="modal hidden">
+    <div class="modal-box">
+      <h3 id="modalTitle"></h3>
+      <div id="modalBody"></div>
+      <div id="modalButtons" class="modal-buttons"></div>
+    </div>
+  </div>
+
+  <input id="fileInput" type="file" multiple class="hidden">
+
+  <script src="vendor/codemirror/lib/codemirror.js"></script>
+  <script src="vendor/codemirror/addon/mode/simple.js"></script>
+  <script src="vendor/codemirror/addon/edit/closebrackets.js"></script>
+  <script src="vendor/codemirror/addon/edit/matchbrackets.js"></script>
+  <script src="vendor/codemirror/addon/selection/active-line.js"></script>
+  <script src="vendor/codemirror/addon/comment/comment.js"></script>
+  <script src="vendor/codemirror/mode/clike/clike.js"></script>
+  <script src="vendor/codemirror/mode/python/python.js"></script>
+  <script src="vendor/codemirror/mode/lua/lua.js"></script>
+  <script src="vendor/codemirror/mode/javascript/javascript.js"></script>
+  <script src="vendor/codemirror/mode/xml/xml.js"></script>
+  <script src="vendor/codemirror/mode/css/css.js"></script>
+  <script src="vendor/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+  <script src="vendor/xterm/xterm.js"></script>
+  <script src="vendor/xterm/addon-fit.js"></script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
