@@ -1,0 +1,20 @@
+{
+  "name": "codigo-movil-web",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Interfaz y motores (C/C++, Python, Lua, JS, Web, Chispa) de la app Código Móvil",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node test/chispa.test.mjs && node test/engines.test.mjs",
+    "serve": "node scripts/serve.mjs"
+  },
+  "dependencies": {
+    "@xterm/addon-fit": "0.10.0",
+    "@xterm/xterm": "5.5.0",
+    "@yowasp/clang": "22.0.0-git20542-10",
+    "codemirror": "5.65.18",
+    "fengari-web": "0.1.4",
+    "pyodide": "314.0.8"
+  }
+}
