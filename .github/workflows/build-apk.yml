@@ -78,17 +78,31 @@ jobs:
           path: dist/CodigoMovil.apk
           retention-days: 30
 
-      # En cada cambio en main se publica el APK en "Releases" para descargarlo
-      # directamente desde el movil.
-      - name: Publicar en Releases
+      # El APK se publica en "Releases" para descargarlo directamente desde el movil:
+      #  - cambios en main  -> "ultima-version"
+      #  - PR (o lanzamiento manual) -> "prueba" (version de pruebas)
+      - name: Publicar en Releases (main)
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ultima-version
           name: Código Móvil (última versión)
-          prerelease: true
           make_latest: true
           body: |
             APK generado automáticamente desde `main` (compilación ${{ github.run_number }}).
+            Descarga **CodigoMovil.apk** desde el móvil e instálalo.
+          files: dist/CodigoMovil.apk
+
+      - name: Publicar en Releases (prueba)
+        if: (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository) || github.event_name == 'workflow_dispatch'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: prueba
+          target_commitish: ${{ github.event.pull_request.head.sha || github.sha }}
+          name: Código Móvil (versión de prueba)
+          prerelease: true
+          make_latest: false
+          body: |
+            APK de prueba (compilación ${{ github.run_number }}, commit ${{ github.event.pull_request.head.sha || github.sha }}).
             Descarga **CodigoMovil.apk** desde el móvil e instálalo.
           files: dist/CodigoMovil.apk
